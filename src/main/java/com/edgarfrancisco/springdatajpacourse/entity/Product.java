@@ -14,6 +14,42 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+//@NamedQuery(
+//        name = "Product.findByPrice",
+//        query = "SELECT p FROM Product p WHERE p.price = :price"
+//)
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "Product.findAllOrderByNameDesc",
+                        query = "SELECT p FROM Product p ORDER BY p.name DESC"
+                ),
+                @NamedQuery(
+                        name = "Product.findByPrice",
+                        query = "SELECT p FROM Product p where p.price = :price"
+                )
+        }
+)
+//@NamedNativeQuery(
+//        name = "Product.findByDescription",
+//        query = "SELECT * FROM products WHERE description = :description",
+//        resultClass = Product.class
+//)
+
+@NamedNativeQueries(
+        {
+                @NamedNativeQuery(
+                        name = "Product.findByDescription",
+                        query = "SELECT * FROM products WHERE description = :description",
+                        resultClass = Product.class
+                ),
+                @NamedNativeQuery(
+                        name = "Product.findAllOrderByNameASC",
+                        query = "SELECT * FROM products ORDER BY name ASC",
+                        resultClass = Product.class
+                )
+        }
+)
 @Table(
         name = "products",
         schema = "ecommerce",
@@ -44,6 +80,11 @@ public class Product {
     private BigDecimal price;
     private boolean active;
     private String imageUrl;
+
+    //ManyToOne bidirectional
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private ProductCategory category;
 
     @CreationTimestamp
     private LocalDateTime dateCreated;
@@ -121,5 +162,13 @@ public class Product {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 }

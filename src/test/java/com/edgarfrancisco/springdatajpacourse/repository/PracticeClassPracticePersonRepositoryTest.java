@@ -8,9 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class PracticeClassPersonRepositoryTest {
+public class PracticeClassPracticePersonRepositoryTest {
     @Autowired
-    PersonRepository personRepository;
+    private PracticePersonRepository practicePersonRepository;
 
     @Test
     void saveMethod() {
@@ -18,14 +18,14 @@ public class PracticeClassPersonRepositoryTest {
         practiceClassPerson1.setFirstName("Edgar");
         practiceClassPerson1.setLastName("Perez");
         practiceClassPerson1.setEmail("edgar@gmail.com");
-        personRepository.save(practiceClassPerson1);
+        practicePersonRepository.save(practiceClassPerson1);
     }
 
     @Test
     void updateUsingSaveMethod() {
-        PracticeClassPerson practiceClassPerson = personRepository.findById(1L).get();
+        PracticeClassPerson practiceClassPerson = practicePersonRepository.findById(1L).get();
         practiceClassPerson.setEmail("edgarfrancisco@gmail.com");
-        personRepository.save(practiceClassPerson);
+        practicePersonRepository.save(practiceClassPerson);
     }
 
     @Test
@@ -41,30 +41,30 @@ public class PracticeClassPersonRepositoryTest {
         practiceClassPerson3.setLastName("Rachmaninoff");
         practiceClassPerson3.setEmail("sergei@gmail.com");
 
-        personRepository.saveAll(List.of(practiceClassPerson2, practiceClassPerson3));
+        practicePersonRepository.saveAll(List.of(practiceClassPerson2, practiceClassPerson3));
     }
 
     @Test
     void findByIdMethod() {
-        PracticeClassPerson practiceClassPerson = personRepository.findById(3L).get();
+        PracticeClassPerson practiceClassPerson = practicePersonRepository.findById(3L).get();
         System.out.println(practiceClassPerson.getFirstName());
     }
 
     @Test
     void findAllMethod() {
-        List<PracticeClassPerson> practiceClassPeople = personRepository.findAll();
+        List<PracticeClassPerson> practiceClassPeople = practicePersonRepository.findAll();
         practiceClassPeople.forEach(x -> System.out.println(x.getFirstName()));
     }
 
     @Test
     void deleteByIdMethod() {
-        personRepository.deleteById(1L);
+        practicePersonRepository.deleteById(1L);
     }
 
     @Test
     void deleteMethod() {
-        PracticeClassPerson practiceClassPerson = personRepository.findById(2L).get();
-        personRepository.delete(practiceClassPerson);
+        PracticeClassPerson practiceClassPerson = practicePersonRepository.findById(2L).get();
+        practicePersonRepository.delete(practiceClassPerson);
     }
 
     @Test
@@ -72,20 +72,20 @@ public class PracticeClassPersonRepositoryTest {
         // To delete all entities
         // personRepository.deleteAll();
         // To delete a list of entities
-        PracticeClassPerson practiceClassPerson1 = personRepository.findById(3L).get();
-        PracticeClassPerson practiceClassPerson2 = personRepository.findById(4L).get();
-        personRepository.deleteAll(List.of(practiceClassPerson1, practiceClassPerson2));
+        PracticeClassPerson practiceClassPerson1 = practicePersonRepository.findById(3L).get();
+        PracticeClassPerson practiceClassPerson2 = practicePersonRepository.findById(4L).get();
+        practicePersonRepository.deleteAll(List.of(practiceClassPerson1, practiceClassPerson2));
     }
 
     @Test
     void countMethod() {
-        long count = personRepository.count();
+        long count = practicePersonRepository.count();
         System.out.println(count);
     }
 
     @Test
     void existsByIdMethod() {
-        boolean result = personRepository.existsById(5L);
+        boolean result = practicePersonRepository.existsById(5L);
         System.out.println(result);
     }
 }
